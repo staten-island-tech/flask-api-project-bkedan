@@ -3,11 +3,9 @@ import requests
 
 app = Flask(__name__)
 
-# Route for the home page
 @app.route("/")
 def index():
-    # We ask the Pokémon API for the first 150 Pokémon.
-    response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=150")
+    response = requests.get("https://db.ygoprodeck.com/api/v7/cardsets.php")
     data = response.json()
     pokemon_list = data['results']
     
@@ -15,12 +13,10 @@ def index():
     pokemons = []
     
     for pokemon in pokemon_list:
-        # Each Pokémon has a URL like "https://pokeapi.co/api/v2/pokemon/1/"
         url = pokemon['url']
         parts = url.strip("/").split("/")
-        id = parts[-1]  # The last part of the URL is the Pokémon's ID
-        
-        # We use the ID to build an image URL.
+        id = parts[-1]
+
         image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
         
         pokemons.append({
