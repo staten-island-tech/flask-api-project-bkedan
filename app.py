@@ -5,57 +5,49 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    response = requests.get("https://db.ygoprodeck.com/api/v7/cardsets.php")
-    data = response.json()
-    pokemon_list = data['results']
-    
-    # We create a list to store details for each Pokémon.
-    pokemons = []
-    
-    for pokemon in pokemon_list:
-        url = pokemon['url']
-        parts = url.strip("/").split("/")
-        id = parts[-1]
 
-        image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
-        
-        pokemons.append({
-            'name': pokemon['name'].capitalize(),
-            'id': id,
-            'image': image_url
+    response = requests.get("https://db.ygoprodeck.com/api/v7/cardinfo.php")
+    data = response.json()
+
+    cards_data = data['data'][:20]
+
+    yugioh = []
+    for card in cards_data:
+        yugioh.append({
+            'name': card['name'],
+            'id': card['id'],
+            'image': card['card_images'][0]['image_url']
         })
-    
-    # We tell Flask to show the 'index.html' page and pass the list of Pokémon.
-    return render_template("index.html", pokemons=pokemons)
 
-# Route for the Pokémon details page
-@app.route("/pokemon/<int:id>")
-def pokemon_detail(id):
-    # We get detailed info for a specific Pokémon using its id.
-    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{id}")
+    return render_template("index.html", yugioh=yugioh)
+
+@app.route("/yugioh/<int:id>")
+def yugioh_detail(id):
+    response = requests.get(f"https://db.ygoprodeck.com/api/v7/cardinfo.php?id={id}")
     data = response.json()
     
-    # We extract extra details like types, height, weight, and stats.
-    types = [t['type']['name'] for t in data['types']]
-    height = data.get('height')
-    weight = data.get('weight')
-    name = data.get('name').capitalize()
-    image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
-    
-    # Get the Pokémon’s base stats (like hp, attack, defense, etc.)
-    stat_names = [stat['stat']['name'] for stat in data['stats']]
-    stat_values = [stat['base_stat'] for stat in data['stats']]
-    
-    # We tell Flask to show the 'pokemon.html' page with all these details.
-    return render_template("pokemon.html", pokemon={
+    if 'data' not in data:
+        return "Card not found", 404
+
+    card = data['data'][0]
+
+
+    name = card.get('name')
+    type_ = card.get('type')
+    desc = card.get('desc')
+    atk = card.get('atk', 'N/A')
+    def_ = card.get('def', 'N/A')
+    level = card.get('level', 'N/A')
+    image_url = card['card_images'][0]['image_url']
+
+    return render_template("yugioh.html", card={
         'name': name,
-        'id': id,
-        'image': image_url,
-        'types': types,
-        'height': height,
-        'weight': weight,
-        'stat_names': stat_names,
-        'stat_values': stat_values
+        'type': type_,
+        'desc': desc,
+        'atk': atk,
+        'def': def_,
+        'level': level,
+        'image': image_url
     })
 
 if __name__ == '__main__':
