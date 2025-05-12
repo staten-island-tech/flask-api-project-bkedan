@@ -2,22 +2,20 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Yugioh mastercard list</title>
-    <!-- Link to your CSS stylesheet -->
+    <title>Yugioh Mastercard List</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body>
     <div class="container">
-      <h1>Yugioh mastercard list</h1>
+      <h1>Yugioh Mastercard List</h1>
       <div class="card-container">
-        <!-- Loop through each Pokémon and wrap each card in a link -->
-        {% for Yugioh in yugiohs %}
-        <a href="{{ url_for('pokemon_detail', id=pokemon.id) }}" class="card-link">
+        {% for card in yugioh %}
+        <a href="{{ url_for('yugioh_detail', id=card.id) }}" class="card-link">
           <div class="card">
-            <img src="{{ yugioh.image }}" alt="{{ yugioh.name }}" />
+            <img src="{{ card.image }}" alt="{{ card.name }}" />
             <div class="card-body">
-              <h5 class="card-title">{{ yugioh.name }}</h5>
-              <p class="card-text">ID: {{ yugioh.id }}</p>
+              <h5 class="card-title">{{ card.name }}</h5>
+              <p class="card-text">ID: {{ card.id }}</p>
             </div>
           </div>
         </a>
