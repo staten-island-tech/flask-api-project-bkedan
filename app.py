@@ -3,11 +3,15 @@ import requests
 
 app = Flask(__name__)
 
+response = requests.get("https://db.ygoprodeck.com/api/v7/cardinfo.php")
+data = response.json()
+print()
+
 @app.route("/")
 def index():
     response = requests.get("https://db.ygoprodeck.com/api/v7/cardinfo.php")
     data = response.json()
-    cards_data = data['data'][:1000]
+    cards_data = data['data'][:20]
     yugioh = []
     for card in cards_data:
         yugioh.append({
