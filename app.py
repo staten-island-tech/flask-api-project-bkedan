@@ -11,7 +11,7 @@ print()
 def index():
     response = requests.get("https://db.ygoprodeck.com/api/v7/cardinfo.php")
     data = response.json()
-    cards_data = data['data'][:20]
+    cards_data = data['data'][:1]
     yugioh = []
     for card in cards_data:
         yugioh.append({

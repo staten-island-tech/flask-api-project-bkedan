@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>{{ card.name }} Details</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>{{ card.name }}</h1>
-      <div class="card-detail">
-        <img src="{{ card.image }}" alt="{{ card.name }}" />
-        <p><strong>Type:</strong> {{ card.type }}</p>
-        <p><strong>Level:</strong> {{ card.level }}</p>
-        <p><strong>ATK:</strong> {{ card.atk }}</p>
-        <p><strong>DEF:</strong> {{ card.def }}</p>
-        <p><strong>Description:</strong> {{ card.desc }}</p>
+<div class="card-container">
+  {% for card in yugioh %}
+    {% if 'id' in card and card['id'] is not none %}
+      <a href="{{ url_for('yugioh_detail', id=card['id']) }}" class="card-link">
+        <div class="card">
+          <img src="{{ card['image'] }}" alt="{{ card['name'] }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ card['name'] }}</h5>
+            <p class="card-text">ID: {{ card['id'] }}</p>
+          </div>
+        </div>
+      </a>
+    {% else %}
+      <div class="card">
+        <img src="{{ card['image'] }}" alt="{{ card['name'] }}" />
+        <div class="card-body">
+          <h5 class="card-title">{{ card['name'] }}</h5>
+          <p class="card-text">ID not available</p>
+        </div>
       </div>
-      <p><a href="{{ url_for('index') }}">← Back to all cards</a></p>
-    </div>
-  </body>
-</html>
+    {% endif %}
+  {% endfor %}
+</div>
