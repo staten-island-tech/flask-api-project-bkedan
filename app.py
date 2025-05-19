@@ -3,13 +3,13 @@ import requests
 
 app = Flask(__name__)
 
-response = requests.get("https://db.ygoprodeck.com/api/v7/cardinfo.php")
+response = requests.get("https://valorant-api.com/v1/playercards")
 data = response.json()
 print()
 
 @app.route("/")
 def index():
-    response = requests.get("https://db.ygoprodeck.com/api/v7/cardinfo.php")
+    response = requests.get("https://valorant-api.com/v1/playercards")
     data = response.json()
     cards_data = data['data'][:1]
     yugioh = []
