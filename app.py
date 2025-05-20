@@ -3,37 +3,33 @@ import requests
 
 app = Flask(__name__)
 
-response = requests.get("https://valorant-api.com/v1/playercards")
-data = response.json()
-print()
-
 @app.route("/")
 def index():
     response = requests.get("https://valorant-api.com/v1/playercards")
     data = response.json()
-    cards_data = data['data'][:1]
-    yugioh = []
+
+    cards_data = data['data'][:10]  # First 10 cards
+    cards = []
     for card in cards_data:
-        yugioh.append({
-            'name': card['name'],
-            'image': card['card_images'][0]['image_url']
+        cards.append({
+            'uuid': card['uuid'],
+            'name': card['displayName'],
+            'image': card['largeArt']
         })
-    return render_template("index.html", yugioh=yugioh)
+    return render_template("index.html", cards=cards)
 
-@app.route("/yugioh/<int:id>")
-def yugioh_detail(id):
-    response = requests.get(f"https://db.ygoprodeck.com/api/v7/cardinfo.php?id={id}")
-    data = response.json()
-    if 'data' not in data or len(data['data']) == 0:
+@app.route("/card/<uuid>")
+def valorant_detail(uuid):
+    response = requests.get(f"https://valorant-api.com/v1/playercards/{uuid}")
+    if response.status_code != 200:
         abort(404)
-    card = data['data'][0]
+    card = response.json()['data']
     card_info = {
-        'name': card['name'],
-        'image': card['card_images'][0]['image_url'],
-        'desc': card.get('desc', 'No description available.'),
-        'type': card.get('type', 'Unknown')
+        'name': card['displayName'],
+        'image': card['largeArt'],
+        'wide_image': card['wideArt'],
+        'small_image': card['smallArt']
     }
-
     return render_template("detail.html", card=card_info)
 
 if __name__ == '__main__':

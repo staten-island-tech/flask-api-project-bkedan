@@ -1,21 +1,25 @@
-{% for card in yugioh %}
-  {% if 'id' in card and card['id'] is not none %}
-    <a href="{{ url_for('yugioh_detail', id=card['id']) }}" class="card-link">
-      <div class="card">
-        <img src="{{ card['image'] }}" alt="{{ card['name'] }}" />
-        <div class="card-body">
-          <h5 class="card-title">{{ card['name'] }}</h5>
-          <p class="card-text">ID: {{ card['id'] }}</p>
-        </div>
-      </div>
-    </a>
-  {% else %}
-    <div class="card">
-      <img src="{{ card['image'] }}" alt="{{ card['name'] }}" />
-      <div class="card-body">
-        <h5 class="card-title">{{ card['name'] }}</h5>
-        <p class="card-text">ID not available</p>
-      </div>
-    </div>
-  {% endif %}
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valorant Player Cards</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="card-container">
+    {% for card in cards %}
+      {% if 'uuid' in card and card['uuid'] is not none %}
+        <a href="{{ url_for('valorant_detail', uuid=card['uuid']) }}" class="card-link">
+          <div class="card">
+            <img src="{{ card['image'] }}" alt="{{ card['name'] }}" />
+            <div class="card-body">
+              <h5 class="card-title">{{ card['name'] }}</h5>
+              <p class="card-text">UUID: {{ card['uuid'] }}</p>
+            </div>
+          </div>
+        </a>
+      {% else %}
+        <div class="card">
+          <img src="{{ card['image'] }}" alt="{{ card['name'] }}" />
+          <div class="
