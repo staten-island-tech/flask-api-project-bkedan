@@ -8,7 +8,7 @@ def index():
     response = requests.get("https://valorant-api.com/v1/playercards")
     data = response.json()
 
-    cards_data = data['data'][:10]  # First 10 cards
+    cards_data = data['data'][:100] 
     cards = []
     for card in cards_data:
         cards.append({
@@ -20,10 +20,10 @@ def index():
 
 @app.route("/card/<uuid>")
 def valorant_detail(uuid):
-    response = requests.get(f"https://valorant-api.com/v1/playercards/{uuid}")
+    response = requests.get(f"https://valorant-api.com/v1/playercards/{uuid}") 
     if response.status_code != 200:
         abort(404)
-    card = response.json()['data']
+    card = response.json()['data'] 
     card_info = {
         'name': card['displayName'],
         'image': card['largeArt'],
