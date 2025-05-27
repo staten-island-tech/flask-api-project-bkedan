@@ -30,7 +30,7 @@ def valorant_detail(uuid):
         'wide_image': card['wideArt'],
         'small_image': card['smallArt']
     }
-    return render_template("detail.html", card=card_info)
+    return render_template("valorant.html", card=card_info)
 
 if __name__ == '__main__':
     app.run(debug=True)
