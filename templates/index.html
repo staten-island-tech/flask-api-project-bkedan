@@ -17,12 +17,29 @@
           <div class="card-body">
             <h5 class="card-title">{{ card['name'] }}</h5>
             <p class="card-text">UUID: {{ card['uuid'] }}</p>
-            <p class="card-description">{{ card['description'] }}</p> <!-- Add description here -->
+            <p class="card-description">{{ card['description'] }}</p>
           </div>
         </div>
       </a>
     {% endfor %}
   </div>
+
+  <script>
+    function searchCards() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        if (title.includes(input)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
 
 </body>
 </html>
