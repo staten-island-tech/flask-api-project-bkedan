@@ -30,8 +30,8 @@
       const cards = document.querySelectorAll('.card');
 
       cards.forEach(card => {
-        const title = card.querySelector('.card-title').textContent.toLowerCase();
-        if (title.includes(input)) {
+        let title = card.querySelector('.card-title').textContent.toLowerCase();
+        if (cardtitle.includes(input)) {
           card.style.display = '';
         } else {
           card.style.display = 'none';
@@ -39,7 +39,5 @@
       });
     }
   </script>
-
-
 </body>
 </html>
