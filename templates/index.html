@@ -9,6 +9,8 @@
 
   <h1 style="text-align: center;">Valorant Player Cards</h1>
 
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by card name..." onkeyup="searchCards()">
   <div class="card-container">
     {% for card in cards %}
       <a href="{{ url_for('valorant_detail', uuid=card['uuid']) }}" class="card-link">
