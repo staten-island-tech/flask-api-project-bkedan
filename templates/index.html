@@ -23,16 +23,15 @@
       </a>
     {% endfor %}
   </div>
-
+  
   <script>
     function searchCards() {
       let input = document.getElementById('searchInput').value.toLowerCase();
       let cards = document.querySelectorAll('.card');
-      let cardtitle = input.toLowerCase();
-
+  
       cards.forEach(card => {
         let title = card.querySelector('.card-title').textContent.toLowerCase();
-        if (cardtitle.includes(input)) {
+        if (title.includes(input)) {
           card.style.display = '';
         } else {
           card.style.display = 'none';
