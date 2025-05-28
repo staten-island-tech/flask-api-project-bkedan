@@ -26,8 +26,9 @@
 
   <script>
     function searchCards() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.card');
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.querySelectorAll('.card');
+      let cardtitle = input.toLowerCase();
 
       cards.forEach(card => {
         let title = card.querySelector('.card-title').textContent.toLowerCase();
