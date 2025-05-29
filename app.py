@@ -8,14 +8,14 @@ def index():
     response = requests.get("https://valorant-api.com/v1/playercards")
     data = response.json()
 
-    cards_data = data['data'][:1000]  # Limit to 1000 cards
+    cards_data = data['data'][:1000]
     cards = []
     for card in cards_data:
         cards.append({
             'uuid': card['uuid'],
             'name': card['displayName'],
             'image': card['largeArt'],
-            'description': card.get('description', 'No description available.')  # Add description or fallback
+            'description': card.get('description', 'No description available.') 
         })
     return render_template("index.html", cards=cards)
 
@@ -30,7 +30,7 @@ def valorant_detail(uuid):
         'image': card['largeArt'],
         'wide_image': card['wideArt'],
         'small_image': card['smallArt'],
-        'description': card.get('description', 'No description available.')  # Add description or fallback
+        'description': card.get('description', 'No description available.') 
     }
     return render_template("valorant.html", card=card_info)
 
