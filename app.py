@@ -10,18 +10,18 @@ def index():
         abort(500, "Failed to fetch episode data")
 
     data = response.json()
-    raw_episodes = data[:100]  
+    raw_episodes = data[:10000]  
 
 
     episodes = []
     for ep in raw_episodes:
         episodes.append({
             'id': ep.get('id'),
-            'title': ep.get('title', 'Untitled'),
+            'title': ep.get('name', 'Untitled'),
             'season': ep.get('season', 'Unknown'),
             'episode': ep.get('episode', 'Unknown'),
             'description': ep.get('description', 'No description available.'),
-            'thumbnail': ep.get('thumbnailUrl', '')
+            'thumbnail': ep.get('thumbnailUrl', '/static/images/placeholder.jpg')
         })
     return render_template("index.html", episodes=episodes)
 @app.route("/episode/<int:episode_id>")
