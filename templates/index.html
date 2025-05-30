@@ -15,7 +15,7 @@
 
   <div class="card-container">
     {% for episode in episodes %}
-      <a href="{{ url_for('simpsons_detail', uuid=episode['uuid']) }}" class="card-link">
+      <a href="{{ url_for('episode  _detail', uuid=episode['uuid']) }}" class="card-link">
         <div class="card">
           <img src="{{ episode['image'] }}" alt="{{ episode['title'] }}">
           <div class="card-body">
