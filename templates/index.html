@@ -8,7 +8,7 @@
 <body>
 
   <h1 style="text-align: center;">Simpsons Episodes</h1>
-
+  
   <div class="search-container">
     <input type="text" id="searchInput" placeholder="Search by episode title..." onkeyup="searchEpisodes()">
   </div>
@@ -35,7 +35,7 @@
   <script>
     function searchEpisodes() {
       let input = document.getElementById('searchInput').value.toLowerCase();
-      let cards = document.querySelectorAll('.card');
+      let episodes = document.querySelectorAll('.card');
 
       cards.forEach(card => {
         let title = card.querySelector('.card-title').textContent.toLowerCase();

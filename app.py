@@ -7,7 +7,7 @@ app = Flask(__name__)
 def index():
     response = requests.get("https://api.sampleapis.com/simpsons/episodes")
     if response.status_code != 200:
-        abort(500, "Failed to fetch episode data")
+        abort(500, "Failed to find episode data")
 
     data = response.json()
     raw_episodes = data[:10000]  
