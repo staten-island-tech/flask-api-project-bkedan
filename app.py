@@ -13,9 +13,9 @@ def index():
     episodes = data[:100]  
 
 
-    cards = []
+    episodes = []
     for ep in episodes:
-        cards.append({
+        episodes.append({
             'id': ep.get('id'),
             'title': ep.get('title', 'Untitled'),
             'season': ep.get('season', 'Unknown'),
@@ -23,7 +23,7 @@ def index():
             'description': ep.get('description', 'No description available.'),
             'thumbnail': ep.get('thumbnailUrl', '')
         })
-    return render_template("index.html", cards=cards)
+    return render_template("index.html", episodes=episodes)
 @app.route("/episode/<int:episode_id>")
 def episode_detail(episode_id):
     response = requests.get("https://api.sampleapis.com/simpsons/episodes")
