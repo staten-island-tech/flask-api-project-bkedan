@@ -15,11 +15,16 @@
 
   <div class="card-container">
     {% for episode in episodes %}
-      <a href="{{ url_for('episode  _detail', uuid=episode['uuid']) }}" class="card-link">
+      <a href="{{ url_for('episode_detail', episode_id=episode['id']) }}" class="card-link">
         <div class="card">
-          <img src="{{ episode['image'] }}" alt="{{ episode['title'] }}">
+          {% if episode['thumbnail'] %}
+            <img src="{{ episode['thumbnail'] }}" alt="{{ episode['title'] }}">
+          {% else %}
+            <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="No image available">
+          {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ episode['title'] }}</h5>
+            <p>Season {{ episode['season'] }}, Episode {{ episode['episode'] }}</p>
             <p class="card-description">{{ episode['description'] }}</p>
           </div>
         </div>
@@ -31,14 +36,10 @@
     function searchEpisodes() {
       let input = document.getElementById('searchInput').value.toLowerCase();
       let cards = document.querySelectorAll('.card');
-  
+
       cards.forEach(card => {
         let title = card.querySelector('.card-title').textContent.toLowerCase();
-        if (title.includes(input)) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display = title.includes(input) ? '' : 'none';
       });
     }
   </script>
