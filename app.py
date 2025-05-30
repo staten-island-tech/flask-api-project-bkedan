@@ -21,7 +21,7 @@ def index():
             'season': ep.get('season', 'Unknown'),
             'episode': ep.get('episode', 'Unknown'),
             'description': ep.get('description', 'No description available.'),
-            'thumbnail': ep.get('thumbnailUrl', '/static/images/placeholder.jpg')
+            'thumbnail': ep.get('thumbnailUrl') or '/static/images/placeholder.jpg'
         })
     return render_template("index.html", episodes=episodes)
 @app.route("/episode/<int:episode_id>")
