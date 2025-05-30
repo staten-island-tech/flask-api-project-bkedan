@@ -10,11 +10,11 @@ def index():
         abort(500, "Failed to fetch episode data")
 
     data = response.json()
-    episodes = data[:100]  
+    raw_episodes = data[:100]  
 
 
     episodes = []
-    for ep in episodes:
+    for ep in raw_episodes:
         episodes.append({
             'id': ep.get('id'),
             'title': ep.get('title', 'Untitled'),
