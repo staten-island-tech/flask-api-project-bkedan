@@ -2,23 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Valorant Player Cards</title>
+  <title>Simpsons Episodes</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-  <h1 style="text-align: center;">Valorant Player Cards</h1>
+  <h1 style="text-align: center;">Simpsons Episodes</h1>
 
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search by card name..." onkeyup="searchCards()">
+    <input type="text" id="searchInput" placeholder="Search by episode title..." onkeyup="searchEpisodes()">
+  </div>
+
   <div class="card-container">
-    {% for card in cards %}
-      <a href="{{ url_for('valorant_detail', uuid=card['uuid']) }}" class="card-link">
+    {% for episode in episodes %}
+      <a href="{{ url_for('simpsons_detail', uuid=episode['uuid']) }}" class="card-link">
         <div class="card">
-          <img src="{{ card['image'] }}" alt="{{ card['name'] }}">
+          <img src="{{ episode['image'] }}" alt="{{ episode['title'] }}">
           <div class="card-body">
-            <h5 class="card-title">{{ card['name'] }}</h5>
-            <p class="card-description">{{ card['description'] }}</p>
+            <h5 class="card-title">{{ episode['title'] }}</h5>
+            <p class="card-description">{{ episode['description'] }}</p>
           </div>
         </div>
       </a>
@@ -26,7 +28,7 @@
   </div>
   
   <script>
-    function searchCards() {
+    function searchEpisodes() {
       let input = document.getElementById('searchInput').value.toLowerCase();
       let cards = document.querySelectorAll('.card');
   
@@ -40,5 +42,6 @@
       });
     }
   </script>
+
 </body>
 </html>

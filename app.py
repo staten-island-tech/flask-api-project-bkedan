@@ -5,34 +5,38 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    response = requests.get("https://valorant-api.com/v1/playercards")
-    data = response.json()
+    response = requests.get("https://api.sampleapis.com/simpsons/episodes")
+    if response.status_code != 200:
+        abort(500, "Failed to fetch episode data")
 
-    cards_data = data['data'][:1000]
+    data = response.json()
+    episodes = data[:100]  
+
+
     cards = []
-    for card in cards_data:
+    for ep in episodes:
         cards.append({
-            'uuid': card['uuid'],
-            'name': card['displayName'],
-            'image': card['largeArt'],
-            'description': card.get('description', 'No description available.') 
+            'id': ep.get('id'),
+            'title': ep.get('title', 'Untitled'),
+            'season': ep.get('season', 'Unknown'),
+            'episode': ep.get('episode', 'Unknown'),
+            'description': ep.get('description', 'No description available.'),
+            'thumbnail': ep.get('thumbnailUrl', '')
         })
     return render_template("index.html", cards=cards)
-
-@app.route("/card/<uuid>")
-def valorant_detail(uuid):
-    response = requests.get(f"https://valorant-api.com/v1/playercards/{uuid}")
+@app.route("/episode/<int:episode_id>")
+def episode_detail(episode_id):
+    response = requests.get("https://api.sampleapis.com/simpsons/episodes")
     if response.status_code != 200:
-        abort(404)
-    card = response.json()['data']
-    card_info = {
-        'name': card['displayName'],
-        'image': card['largeArt'],
-        'wide_image': card['wideArt'],
-        'small_image': card['smallArt'],
-        'description': card.get('description', 'No description available.') 
-    }
-    return render_template("valorant.html", card=card_info)
+        abort(500, "Failed to fetch episode data")
+
+    episodes = response.json()
+    episode = next((ep for ep in episodes if ep.get('id') == episode_id), None)
+
+    if episode is None:
+        abort(404, "Episode not found")
+
+    return render_template("episode.html", episode=episode)
 
 if __name__ == '__main__':
     app.run(debug=True)

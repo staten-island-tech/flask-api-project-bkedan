@@ -1,7 +1,7 @@
 <div class="card-container">
   {% for card in cards %}
     {% if 'uuid' in card and card['uuid'] is not none %}
-      <a href="{{ url_for('valorant_detail', uuid=card['uuid']) }}" class="card-link">
+      <a href="{{ url_for('simpson_detail', uuid=card['uuid']) }}" class="card-link">
         <div class="card">
           <img src="{{ card['image'] }}" alt="{{ card['name'] }}" />
           <div class="card-body">
@@ -20,6 +20,8 @@
       </div>
     {% endif %}
   {% endfor %}
-</div> 
-  <div class="card-footer">
-    <p>Valorant Player Cards</p>
+</div>
+
+<div class="card-footer">
+  <p>Simpsons Character Cards</p>
+</div>
