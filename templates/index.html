@@ -35,7 +35,7 @@
   <script>
     function searchEpisodes() {
       let input = document.getElementById('searchInput').value.toLowerCase();
-      let episodes = document.querySelectorAll('.card');
+      let cards = document.querySelectorAll('.card');
 
       cards.forEach(card => {
         let title = card.querySelector('.card-title').textContent.toLowerCase();
