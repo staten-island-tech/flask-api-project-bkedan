@@ -15,20 +15,18 @@
 
   <div class="card-container">
     {% for episode in episodes %}
-      <a href="{{ url_for('episode_detail', episode_id=episode['id']) }}" class="card-link">
-        <div class="card">
-          {% if episode['thumbnail'] %}
-            <img src="{{ episode['thumbnail'] }}" alt="{{ episode['title'] }}">
-          {% else %}
-            <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="No image available">
-          {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">{{ episode['title'] }}</h5>
-            <p>Season {{ episode['season'] }}, Episode {{ episode['episode'] }}</p>
-            <p class="card-description">{{ episode['description'] }}</p>
-          </div>
+      <div class="card" onclick="toggleDescription(this)">
+        {% if episode['thumbnail'] %}
+          <img src="{{ episode['thumbnail'] }}" alt="{{ episode['title'] }}">
+        {% else %}
+          <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="No image available">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ episode['title'] }}</h5>
+          <p>Season {{ episode['season'] }}, Episode {{ episode['episode'] }}</p>
+          <p class="card-description" style="display: none;">{{ episode['description'] }}</p>
         </div>
-      </a>
+      </div>
     {% endfor %}
   </div>
   
@@ -41,6 +39,11 @@
         let title = card.querySelector('.card-title').textContent.toLowerCase();
         card.style.display = title.includes(input) ? '' : 'none';
       });
+    }
+
+    function toggleDescription(card) {
+      let description = card.querySelector('.card-description');
+      description.style.display = description.style.display === 'none' ? 'block' : 'none';
     }
   </script>
 
