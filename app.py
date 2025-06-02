@@ -36,7 +36,7 @@ def episode_detail(episode_id):
     if episode is None:
         abort(404, "Episode not found")
 
-    return render_template("episode.html", episode=episode)
+    return render_template("simpson.html", episode=episode)
 
 if __name__ == '__main__':
     app.run(debug=True)
