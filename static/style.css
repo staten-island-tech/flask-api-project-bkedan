@@ -78,13 +78,3 @@
   cursor: pointer;
   font-weight: bold;
 }
-.card-extra-description {
-  display: none;
-  font-size: 14px;
-  color: #555;
-  margin-top: 10px;
-}
-
-.card:hover .card-extra-description {
-  display: block;
-}
