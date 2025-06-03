@@ -28,7 +28,7 @@ def index():
 def episode_detail(episode_id):
     response = requests.get("https://api.sampleapis.com/simpsons/episodes")
     if response.status_code != 200:
-        abort(500, "Failed to fetch episode data")
+        abort(500, "Failed to get episode data")
 
     episodes = response.json()
     episode = next((ep for ep in episodes if ep.get('id') == episode_id), None)
