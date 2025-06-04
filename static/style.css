@@ -79,3 +79,7 @@
   font-weight: bold;
 }
 
+  a.card-link {
+    text-decoration: none;
+    color: inherit;
+  }
