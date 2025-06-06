@@ -1,24 +1,25 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-    <title>{{ episode.title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <title>{{ episode.title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
-    <h1 style="text-align: center;">Simpsons Episodes</h1>
+  <h1 style="text-align: center;">Simpsons Episodes</h1>
   
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search by episode title..." onkeyup="searchEpisodes()">
+    <input type="text" id="searchInput" placeholder="Search by episode title..." onkeyup="searchEpisodes()" />
   </div>
 
-    <div class="card-container">
+  <div class="card-container">
     {% for episode in episodes %}
       <a href="{{ url_for('episode_detail', episode_id=episode['id']) }}" class="card-link">
         <div class="card">
           {% if episode['thumbnail'] %}
-            <img src="{{ episode['thumbnail'] }}" alt="{{ episode['title'] }}">
+            <img src="{{ episode['thumbnail'] }}" alt="{{ episode['title'] }}" />
           {% else %}
-            <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="No image available">
+            <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="No image available" />
           {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ episode['title'] }}</h5>
@@ -30,8 +31,7 @@
     {% endfor %}
   </div>
 
-  
-      <script>
+  <script>
     function searchEpisodes() {
       let input = document.getElementById('searchInput').value.toLowerCase();
       let cards = document.querySelectorAll('.card');
@@ -42,6 +42,5 @@
       });
     }
   </script>
-</div>
 </body>
 </html>
