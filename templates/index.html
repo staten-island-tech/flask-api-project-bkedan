@@ -1,33 +1,37 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>{{ episode.title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <meta charset="UTF-8">
+    <title>{{ episode.title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="episode-detail-container">
-    <h1>{{ episode.title }}</h1>
-
-    {% if episode.thumbnail %}
-      <img src="{{ episode.thumbnail }}" alt="{{ episode.title }}" class="detail-image" />
-    {% else %}
-      <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="No image available" class="detail-image" />
-    {% endif %}
-
-    <p><strong>Season {{ episode.season }}, Episode {{ episode.episode }}</strong></p>
-    <p class="full-description">{{ episode.description }}</p>
-  </div>
-
-  <hr />
-
-  <h1 style="text-align: center;">Simpsons Episodes</h1>
+    <h1 style="text-align: center;">Simpsons Episodes</h1>
   
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search by episode title..." onkeyup="searchEpisodes()" />
+    <input type="text" id="searchInput" placeholder="Search by episode title..." onkeyup="searchEpisodes()">
   </div>
 
-  <script>
+    <div class="card-container">
+    {% for episode in episodes %}
+      <a href="{{ url_for('episode_detail', episode_id=episode['id']) }}" class="card-link">
+        <div class="card">
+          {% if episode['thumbnail'] %}
+            <img src="{{ episode['thumbnail'] }}" alt="{{ episode['title'] }}">
+          {% else %}
+            <img src="{{ url_for('static', filename='placeholder.jpg') }}" alt="No image available">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ episode['title'] }}</h5>
+            <p>Season {{ episode['season'] }}, Episode {{ episode['episode'] }}</p>
+            <p class="card-description">{{ episode['description'] }}</p>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+  
+      <script>
     function searchEpisodes() {
       let input = document.getElementById('searchInput').value.toLowerCase();
       let cards = document.querySelectorAll('.card');
@@ -38,5 +42,6 @@
       });
     }
   </script>
+</div>
 </body>
 </html>
