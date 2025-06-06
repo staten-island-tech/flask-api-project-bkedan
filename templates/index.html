@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,14 +7,11 @@
 </head>
 <body>
 
-
-
   <h1 style="text-align: center;">Simpsons Episodes</h1>
   
   <div class="search-container">
     <input type="text" id="searchInput" placeholder="Search by episode title..." onkeyup="searchEpisodes()">
   </div>
-
 
   <div class="card-container">
     {% for episode in episodes %}
@@ -27,16 +25,22 @@
           <div class="card-body">
             <h5 class="card-title">{{ episode['title'] }}</h5>
             <p>Season {{ episode['season'] }}, Episode {{ episode['episode'] }}</p>
-            <p class="card-description">{{ episode['description'] }}</p>
           </div>
         </div>
       </a>
     {% endfor %}
   </div>
-  
-
 
   <script>
     function searchEpisodes() {
       let input = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.querySelectorAll('.card-link');
+
+      cards.forEach(link => {
+        let title = link.querySelector('.card-title').textContent.toLowerCase();
+        link.style.display = title.includes(input) ? '' : 'none';
+      });
     }
+  </script>
+</body>
+</html>
